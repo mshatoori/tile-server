@@ -73,7 +73,7 @@ std::vector<unsigned char> TileRenderer::render_tile(int z, int x, int y) {
     renderer.apply(); // Perform the rendering
 
     // Encode the image to PNG format in memory
-    std::string png_string = mapnik::save_map_to_string(image, "png");
+    std::string png_string = mapnik::save_to_string(image, "png"); // Corrected function name
 
     // Convert the PNG string to a byte vector
     return std::vector<unsigned char>(png_string.begin(), png_string.end());

@@ -1,0 +1,13 @@
+{
+  "name": "nodejs-tile-server",
+  "version": "1.0.0",
+  "description": "A simple tile server in Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mapnik": "^4.0.0"
+  }
+}

@@ -150,7 +150,7 @@ void HttpSession::handle_request() {
     // Target looks like: "/12/2048/1365.png"
     static const std::regex tile_regex(R"(\/(\d+)\/(\d+)\/(\d+)\.png)");
     std::smatch match;
-    std::string target_str = req_.target().to_string(); // Convert beast::string_view
+    std::string target_str(req_.target().data(), req_.target().size()); // Convert beast::string_view
 
     if (std::regex_match(target_str, match, tile_regex)) {
         try {
@@ -202,9 +202,8 @@ void HttpSession::handle_request() {
 }
 
 
-// Overload or template specialization for string body needed for bad_request etc.
 void HttpSession::send_response(http::response<http::string_body>&& response) {
-     // For string bodies (used by error handlers)
+    // For string bodies (used by error handlers)
     auto sp = shared_from_this(); // Keep session alive
 
     // Write the response
@@ -238,7 +237,7 @@ void HttpSession::send_bad_request(beast::string_view why) {
 
 void HttpSession::send_not_found() {
     auto res = make_response<http::string_body>(http::status::not_found, "text/plain", req_.version(), req_.keep_alive());
-    res.body() = "The resource '" + req_.target().to_string() + "' was not found.";
+    res.body() = "The resource '" + std::string(req_.target().data(), req_.target().size()) + "' was not found.";
     res.prepare_payload();
     send_response(std::move(res));
 }

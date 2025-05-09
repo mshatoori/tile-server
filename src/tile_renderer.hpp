@@ -18,6 +18,7 @@
 #include <mapnik/image.hpp>
 #include <mapnik/image_util.hpp>
 #include <mapnik/datasource_cache.hpp>
+#include <mapnik/datasource.hpp> // Added for mapnik::datasource definition
 #include <mapnik/box2d.hpp>
 #include <mapnik/proj_transform.hpp> // For projections if needed manually
 

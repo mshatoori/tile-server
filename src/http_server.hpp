@@ -6,6 +6,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/strand.hpp>
 #include <boost/config.hpp>
+#include <boost/beast/version.hpp> // Added for BOOST_BEAST_VERSION_STRING
 #include <string>
 #include <memory> // For shared_ptr
 #include <vector> // For vector<uchar> tile data
@@ -53,7 +54,8 @@ private:
     void on_read(beast::error_code ec, std::size_t bytes_transferred);
     void handle_request();
     void send_response(http::response<http::vector_body<unsigned char>>&& response);
-     void send_bad_request(beast::string_view why);
+    void send_response(http::response<http::string_body>&& response); // Overload for string body
+    void send_bad_request(beast::string_view why);
     void send_not_found();
     void send_server_error(beast::string_view what);
     void on_write(bool close, beast::error_code ec, std::size_t bytes_transferred);
