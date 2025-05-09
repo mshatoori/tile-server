@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map[]>
+<Map srs="+init=epsg:3857" background-color="#f2efe9">
+
+    <Parameters>
+      <Parameter name="format">png</Parameter>
+      <Parameter name="file">placeholder.pbf</Parameter>
+      <Parameter name="type">osm</Parameter>
+    </Parameters>
+
+    <Style name="roads_major">
+        <Rule>
+            <Filter>[highway] = 'primary' or [highway] = 'secondary' or [highway] = 'tertiary' or [highway] = 'trunk'</Filter>
+            <MaxScaleDenominator>500000</MaxScaleDenominator> <LineSymbolizer stroke="#888888" stroke-width="2" />
+        </Rule>
+         <Rule>
+            <Filter>[highway] = 'motorway'</Filter>
+            <MaxScaleDenominator>1000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#a0a0ff" stroke-width="3" />
+        </Rule>
+    </Style>
+
+    <Style name="water_areas">
+        <Rule>
+            <Filter>[natural] = 'water' or [waterway] = 'riverbank'</Filter>
+            <PolygonSymbolizer fill="#a0c8f0" />
+             </Rule>
+    </Style>
+
+    <Layer name="water" srs="+init=epsg:4326"> <StyleName>water_areas</StyleName>
+        <Datasource>
+             <Parameter name="file">(file)</Parameter>
+             <Parameter name="type">(type)</Parameter>
+             <Parameter name="encoding">utf-8</Parameter> </Datasource>
+    </Layer>
+
+    <Layer name="roads" srs="+init=epsg:4326"> <StyleName>roads_major</StyleName>
+        <Datasource>
+             <Parameter name="file">(file)</Parameter>
+             <Parameter name="type">(type)</Parameter>
+             <Parameter name="encoding">utf-8</Parameter>
+        </Datasource>
+    </Layer>
+
+</Map>
